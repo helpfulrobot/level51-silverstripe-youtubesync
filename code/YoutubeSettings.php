@@ -1,6 +1,6 @@
 <?php
 
-class YoutubeSettings extends Extension
+class YoutubeSettings extends DataExtension
 {
     private static $db = array(
         'YoutubeApiKey' => 'Varchar(255)',
@@ -10,17 +10,10 @@ class YoutubeSettings extends Extension
 
     public function updateCMSFields(FieldList $fields) {
         $fields->addFieldsToTab('Root.Youtube', array(
-            TextField::create('YoutubeApiKey'),
-            TextField::create('YoutubeUserName'),
-            TextField::create('Playlists', 'Youtube playlists')
+            TextField::create('YoutubeApiKey', _t('YoutubeSettings.YOUTUBE_API_KEY', 'Youtube API Key')),
+            TextField::create('YoutubeUserName', _t('YoutubeSettings.YOUTUBE_USER_NAME', 'Youtube user name')),
+            TextField::create('Playlists', _t('YoutubeSettings.PLAYLISTS', 'Youtube playlists'))
                 ->setDescription(_t('YoutubeSettings.PLAYLISTS_DESCRIPTION', 'Comma-separated list of Youtube playlists - leave it empty to get all'))
         ));
     }
-
-    public function updateFieldLabels($labels){
-        $labels['YoutubeApiKey'] = _t('YoutubeSettings.YOUTUBE_API_KEY', 'Youtube API Key');
-        $labels['YoutubeUserName'] = _t('YoutubeSettings.YOUTUBE_USER_NAME', 'Youtube user name');
-        $labels['Playlists'] = _t('YoutubeSettings.PLAYLISTS', 'Youtube playlists');
-    }
-
 }
