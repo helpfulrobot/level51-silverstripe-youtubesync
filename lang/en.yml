@@ -1,0 +1,24 @@
+en:
+  YoutubeAdmin:
+    MENUTITLE: Youtube
+  GridFieldSyncYoutubeVideos:
+    CTA: 'Sync with Youtube'
+  SiteTree:
+    PLURALNAME: Pages
+    SINGULARNAME: Page
+  YoutubeSettings:
+    PLAYLISTS: 'Youtube playlists'
+    PLAYLISTS_DESCRIPTION: 'Comma-separated list of Youtube playlists - leave it empty to get all'
+    YOUTUBE_API_KEY: 'Youtube API Key'
+    YOUTUBE_USER_NAME: 'Youtube user name'
+  YoutubeVideo:
+    DESCRIPTION: Description
+    PLURALNAME: 'Youtube Videos'
+    SINGULARNAME: 'Youtube Video'
+    THUMBNAIL_URL: 'Thumbnail URL'
+    TITLE: Title
+    VISIBLE: 'Visible?'
+  YoutubeVideoPage:
+    DESCRIPTION: 'Page for your youtube videos.'
+    PLURALNAME: 'Youtube video pages'
+    SINGULARNAME: 'Youtube video page'

@@ -25,9 +25,8 @@ class YoutubeFactory
      * First get the related playlists and then their entries - update the database
      * @param $user : The youtube user name
      * @param null $playlistLimit : comma separated list of playlists
-     * @param null $currPageID : The ID of the current gallery page for storage in the has_many relation
      */
-    public function getVideosByUser($user, $playlistLimit = null, $currPageID = null){
+    public function getVideosByUser($user, $playlistLimit = null){
 
         // Get all Playlists of the user
         $playlists = $this->getPlaylistsByUser($user);
@@ -48,9 +47,8 @@ class YoutubeFactory
         }
 
         // Update the db entries for all fetched videos
-        $this->updateVideoEntries($videos, $currPageID);
+        $this->updateVideoEntries($videos);
     }
-
 
     /**
      * Call the API to get all playlists of a given user
@@ -87,13 +85,13 @@ class YoutubeFactory
             );
 
         // Get all playlists and return them
-        return $playlists = $response->items[0]->contentDetails->relatedPlaylists;
+        return $response->items[0]->contentDetails->relatedPlaylists;
     }
 
     /**
      * Get all items of the given playlist
      * @param $playlistID: The unique id of the playlist
-     * @return array: ArrayList including a ArrayData element for each item or an error array with status and message
+     * @return array: ArrayList including a ArrayData element for each item or an empty array
      */
     public function getPlaylistItems($playlistID) {
 
@@ -118,9 +116,7 @@ class YoutubeFactory
         }
 
         return array();
-
     }
-
 
     /**
      * Update or create the database entries for each element of the given videos array
@@ -159,6 +155,4 @@ class YoutubeFactory
                 $video->delete();
         }
     }
-
-
 }

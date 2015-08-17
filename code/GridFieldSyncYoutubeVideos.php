@@ -13,7 +13,7 @@ class GridFieldSyncYoutubeVideos implements GridField_HTMLProvider, GridField_Ac
         $button = new GridField_FormAction(
             $gridField,
             'syncwithyoutube',
-            'Sync mit Youtube',
+            _t('GridFieldSyncYoutubeVideos.CTA','Sync with Youtube'),
             'syncwithyoutube',
             null
         );
@@ -46,7 +46,7 @@ class GridFieldSyncYoutubeVideos implements GridField_HTMLProvider, GridField_Ac
         $sc = SiteConfig::current_site_config();
 
         // Call the factory
-        $yf->getVideosByUser($sc->YoutubeUserName);
+        $yf->getVideosByUser($sc->YoutubeUserName, $sc->Playlists);
 
         // Redirect to the grid overview
         Controller::curr()->redirectBack();

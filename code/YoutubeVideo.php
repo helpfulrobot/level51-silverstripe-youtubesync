@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: daniel
- * Date: 20.07.15
- * Time: 11:07
- */
 class YoutubeVideo extends DataObject
 {
 
@@ -49,12 +43,16 @@ class YoutubeVideo extends DataObject
         return $fields;
     }
 
-    private static $field_labels = array(
-        'Title' => 'Titel',
-        'Description' => 'Beschreibung',
-        'ThumbnailURL' => 'Vorschaubild',
-        'Visible' => 'Anzeigen?'
-    );
+    public function fieldLabels($includerelations = true) {
+        $labels = parent::fieldLabels($includerelations);
+
+        $labels['Title'] = _t('YoutubeVideo.TITLE', 'Title');
+        $labels['Description'] = _t('YoutubeVideo.DESCRIPTION', 'Description');
+        $labels['ThumbnailURL'] = _t('YoutubeVideo.THUMBNAIL_URL', 'Thumbnail URL');
+        $labels['Visible'] = _t('YoutubeVideo.VISIBLE', 'Visible?');
+
+        return $labels;
+    }
 
     /**
      * Get the URL to the video on youtube

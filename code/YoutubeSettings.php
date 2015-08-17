@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: daniel
- * Date: 17.08.15
- * Time: 09:18
- */
 class YoutubeSettings extends Extension
 {
     private static $db = array(
@@ -16,11 +10,17 @@ class YoutubeSettings extends Extension
 
     public function updateCMSFields(FieldList $fields) {
         $fields->addFieldsToTab('Root.Youtube', array(
-            TextField::create('YoutubeApiKey', 'Youtube API Key'),
-            TextField::create('YoutubeUserName', 'Youtube user name'),
+            TextField::create('YoutubeApiKey'),
+            TextField::create('YoutubeUserName'),
             TextField::create('Playlists', 'Youtube playlists')
-                ->setDescription('Kommaseparierte Liste der Youtube Playlists - leer lassen um alle zu bekommen')
+                ->setDescription(_t('YoutubeSettings.PLAYLISTS_DESCRIPTION', 'Comma-separated list of Youtube playlists - leave it empty to get all'))
         ));
+    }
+
+    public function updateFieldLabels($labels){
+        $labels['YoutubeApiKey'] = _t('YoutubeSettings.YOUTUBE_API_KEY', 'Youtube API Key');
+        $labels['YoutubeUserName'] = _t('YoutubeSettings.YOUTUBE_USER_NAME', 'Youtube user name');
+        $labels['Playlists'] = _t('YoutubeSettings.PLAYLISTS', 'Youtube playlists');
     }
 
 }
