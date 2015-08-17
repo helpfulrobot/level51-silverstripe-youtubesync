@@ -1,0 +1,9 @@
+{
+  "name": "ss-modules/youtubesync",
+  "description": "A SilverStripe module for syncing videos with youtube",
+  "version": "0.1.0",
+  "type": "silverstripe-module",
+  "require": {
+    "undefinedoffset/sortablegridfield": "~0.4"
+  }
+}

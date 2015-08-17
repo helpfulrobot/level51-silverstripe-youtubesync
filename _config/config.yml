@@ -1,0 +1,9 @@
+---
+Name: youtubesync
+After:
+  - 'framework/*'
+  - 'cms/*'
+---
+SiteConfig:
+  extensions:
+    - YoutubeSettings
