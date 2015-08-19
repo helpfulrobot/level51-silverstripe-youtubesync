@@ -1,9 +1,18 @@
 {
-  "name": "ss-modules/youtubesync",
-  "description": "A SilverStripe module for syncing videos with youtube",
+  "name": "level51/silverstripe-youtubesync",
+  "description": "A SilverStripe module for syncing videos with Youtube",
   "version": "0.1.0",
   "type": "silverstripe-module",
-  "require": {
-    "undefinedoffset/sortablegridfield": "~0.4"
+  "authors": [
+    {
+      "name": "Daniel Kliemsch",
+      "email": "dk@lvl51.de"
+    }
+  ],
+  "suggest": {
+    "undefinedoffset/sortablegridfield": "To allow sorting of the video entries"
+  },
+  "extra": {
+    "installer-name": "youtubesync"
   }
 }
