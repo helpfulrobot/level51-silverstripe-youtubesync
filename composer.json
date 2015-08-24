@@ -1,7 +1,7 @@
 {
   "name": "level51/silverstripe-youtubesync",
   "description": "A SilverStripe module for syncing videos with Youtube",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "silverstripe-module",
   "authors": [
     {
