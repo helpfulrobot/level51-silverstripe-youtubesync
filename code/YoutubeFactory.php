@@ -139,7 +139,7 @@ class YoutubeFactory
             
             $yv->PlaylistItemID = $video->id;
             $yv->VideoID = $video->contentDetails->videoId;
-            $yv->ThumbnailURL = $video->snippet->thumbnails->maxres->url;
+            $yv->ThumbnailURL = end($video->snippet->thumbnails->toMap())->url;
 
             // Write to the db and store as processed item
             $yv->write();
