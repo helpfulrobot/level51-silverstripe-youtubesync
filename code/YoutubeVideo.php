@@ -78,4 +78,20 @@ class YoutubeVideo extends DataObject
         return '<iframe src="' . $this->getEmbedURL() . '?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>';
     }
 
+    public function canView($member = null) {
+        return Permission::check('CMS_ACCESS_YoutubeAdmin');
+    }
+
+    public function canEdit($member = null) {
+        return Permission::check('CMS_ACCESS_YoutubeAdmin');
+    }
+
+    public function canDelete($member = null) {
+        return Permission::check('CMS_ACCESS_YoutubeAdmin');
+    }
+
+    public function canCreate($member = null) {
+        return Permission::check('CMS_ACCESS_YoutubeAdmin');
+    }
+
 }
