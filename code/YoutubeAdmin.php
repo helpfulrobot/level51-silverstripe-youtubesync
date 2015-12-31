@@ -10,7 +10,8 @@ class YoutubeAdmin extends ModelAdmin
     private static $url_segment = 'youtube';
     private static $menu_icon = 'youtubesync/images/youtubesync.png';
 
-    public function getEditForm($id = null, $fields = null) {
+    public function getEditForm($id = null, $fields = null)
+    {
         $form = parent::getEditForm($id = null, $fields = null);
 
         // Get the gridfield ...
@@ -27,11 +28,10 @@ class YoutubeAdmin extends ModelAdmin
             ->addComponent(new GridFieldSyncYoutubeVideos());
 
         // Add the sortable component if installed
-        if(class_exists("GridFieldSortableRows")) {
+        if (class_exists("GridFieldSortableRows")) {
             $config->addComponent(new GridFieldSortableRows('SortOrder'));
         }
 
         return $form;
     }
-
 }

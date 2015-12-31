@@ -30,7 +30,8 @@ class YoutubeVideo extends DataObject
 
     private static $default_sort = 'SortOrder ASC';
 
-    public function getCMSFields(){
+    public function getCMSFields()
+    {
         $fields = parent::getCMSFields();
 
         $fields->removeByName('PlaylistItemID');
@@ -43,7 +44,8 @@ class YoutubeVideo extends DataObject
         return $fields;
     }
 
-    public function fieldLabels($includerelations = true) {
+    public function fieldLabels($includerelations = true)
+    {
         $labels = parent::fieldLabels($includerelations);
 
         $labels['Title'] = _t('YoutubeVideo.TITLE', 'Title');
@@ -58,7 +60,8 @@ class YoutubeVideo extends DataObject
      * Get the URL to the video on youtube
      * @return string
      */
-    public function getURL(){
+    public function getURL()
+    {
         return 'https://www.youtube.com/watch?v=' . $this->VideoID;
     }
 
@@ -66,7 +69,8 @@ class YoutubeVideo extends DataObject
      * Get the URL for the embedded video
      * @return string
      */
-    public function getEmbedURL(){
+    public function getEmbedURL()
+    {
         return 'https://www.youtube.com/embed/' . $this->VideoID;
     }
 
@@ -74,24 +78,28 @@ class YoutubeVideo extends DataObject
      * Get the full iFrame tag to embed the video
      * @return string
      */
-    public function getIframe(){
+    public function getIframe()
+    {
         return '<iframe src="' . $this->getEmbedURL() . '?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>';
     }
 
-    public function canView($member = null) {
+    public function canView($member = null)
+    {
         return Permission::check('CMS_ACCESS_YoutubeAdmin');
     }
 
-    public function canEdit($member = null) {
+    public function canEdit($member = null)
+    {
         return Permission::check('CMS_ACCESS_YoutubeAdmin');
     }
 
-    public function canDelete($member = null) {
+    public function canDelete($member = null)
+    {
         return Permission::check('CMS_ACCESS_YoutubeAdmin');
     }
 
-    public function canCreate($member = null) {
+    public function canCreate($member = null)
+    {
         return Permission::check('CMS_ACCESS_YoutubeAdmin');
     }
-
 }

@@ -8,7 +8,8 @@ class YoutubeSettings extends DataExtension
         'Playlists' => 'Varchar(255)'
     );
 
-    public function updateCMSFields(FieldList $fields) {
+    public function updateCMSFields(FieldList $fields)
+    {
         $fields->addFieldsToTab('Root.Youtube', array(
             TextField::create('YoutubeApiKey', _t('YoutubeSettings.YOUTUBE_API_KEY', 'Youtube API Key')),
             TextField::create('YoutubeUserName', _t('YoutubeSettings.YOUTUBE_USER_NAME', 'Youtube user name')),

@@ -5,14 +5,16 @@ class YoutubeFactory
 
     protected $prepared, $service;
 
-    public function __construct(){
+    public function __construct()
+    {
         if (!$this->prepared) {
-
-            if (!defined('YOUTUBE_API_KEY'))
+            if (!defined('YOUTUBE_API_KEY')) {
                 define('YOUTUBE_API_KEY', SiteConfig::current_site_config()->YoutubeApiKey);
+            }
 
-            if (YOUTUBE_API_KEY == '')
+            if (YOUTUBE_API_KEY == '') {
                 user_error('Please specify a valid Youtube Api Key in the site config.', E_USER_ERROR);
+            }
 
             // Create the service
             $this->service = RestfulService::create('https://www.googleapis.com/youtube/v3/');
@@ -26,24 +28,27 @@ class YoutubeFactory
      * @param $user : The youtube user name
      * @param null $playlistLimit : comma separated list of playlists
      */
-    public function getVideosByUser($user, $playlistLimit = null){
+    public function getVideosByUser($user, $playlistLimit = null)
+    {
 
         // Get all Playlists of the user
         $playlists = $this->getPlaylistsByUser($user);
 
         // Explode the limit string if given
-        if ($playlistLimit)
+        if ($playlistLimit) {
             $included = explode(',', $playlistLimit);
+        }
 
         // Get the videos and merge them in one array
         $videos = ArrayList::create();
-        foreach($playlists as $pName => $pID) {
+        foreach ($playlists as $pName => $pID) {
             if ($playlistLimit) {
-                if (in_array($pName, $included))
+                if (in_array($pName, $included)) {
                     $videos->merge($this->getPlaylistItems($pID));
-            }
-            else
+                }
+            } else {
                 $videos->merge($this->getPlaylistItems($pID));
+            }
         }
 
         // Update the db entries for all fetched videos
@@ -55,7 +60,8 @@ class YoutubeFactory
      * @param $user: The youtube user name
      * @return array: A array with all playlists in title => id manner or an error array with status and message
      */
-    public function getPlaylistsByUser($user){
+    public function getPlaylistsByUser($user)
+    {
 
         // Set the related parameter
         $this->service->setQueryString(array(
@@ -68,21 +74,23 @@ class YoutubeFactory
         $response = $this->service->request('channels');
 
         // Check if response given
-        if(!$response)
+        if (!$response) {
             return array(
                 'status' => 'error',
                 'message' => 'error during api call'
             );
+        }
 
         // Decode the JSON content
         $response = json_decode($response->getBody());
 
         // Check if the response contains the needed "items" element
-        if (!isset($response->items) || count($response->items) == 0)
+        if (!isset($response->items) || count($response->items) == 0) {
             return array(
                 'status' => 'error',
                 'message' => 'response given, but contains no items'
             );
+        }
 
         // Get all playlists and return them
         return $response->items[0]->contentDetails->relatedPlaylists;
@@ -93,8 +101,8 @@ class YoutubeFactory
      * @param $playlistID: The unique id of the playlist
      * @return array: ArrayList including a ArrayData element for each item or an empty array
      */
-    public function getPlaylistItems($playlistID) {
-
+    public function getPlaylistItems($playlistID)
+    {
         $this->service->setQueryString(array(
             'part' => 'contentDetails,snippet',
             'playlistId' => $playlistID,
@@ -103,13 +111,14 @@ class YoutubeFactory
 
         $response = $this->service->request('playlistItems');
 
-        if($response)
+        if ($response) {
             $response = json_decode($response->getBody());
+        }
 
         // Build the results array if there are some items
-        if(isset($response->items) && $response->pageInfo->totalResults > 0) {
+        if (isset($response->items) && $response->pageInfo->totalResults > 0) {
             $items = ArrayList::create();
-            foreach($response->items as $vid) {
+            foreach ($response->items as $vid) {
                 $items->push(ArrayData::create($vid));
             }
             return $items;
@@ -122,13 +131,14 @@ class YoutubeFactory
      * Update or create the database entries for each element of the given videos array
      * @param $videos: Array with all videos to update
      */
-    protected function updateVideoEntries($videos){
+    protected function updateVideoEntries($videos)
+    {
 
         // Holder for all updated or newly created entries
         $processed = ArrayList::create();
 
         // Loop over the given videos fetched from the API
-        foreach($videos as $video) {
+        foreach ($videos as $video) {
 
             // Get the entry or create new one
             if (!$yv = YoutubeVideo::get()->filter('PlaylistItemID', $video->id)->first()) {
@@ -151,9 +161,10 @@ class YoutubeFactory
          * Loop over all video entries from the database
          * delete all entries, which are found in the db but not processed above
          */
-        foreach(YoutubeVideo::get() as $video) {
-            if (!$processed->find('ID', $video->ID))
+        foreach (YoutubeVideo::get() as $video) {
+            if (!$processed->find('ID', $video->ID)) {
                 $video->delete();
+            }
         }
     }
 }

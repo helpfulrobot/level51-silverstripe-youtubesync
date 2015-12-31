@@ -5,15 +5,17 @@ class GridFieldSyncYoutubeVideos implements GridField_HTMLProvider, GridField_Ac
 
     protected $targetFragment;
 
-    public function __construct($targetFragment = "before") {
+    public function __construct($targetFragment = "before")
+    {
         $this->targetFragment = $targetFragment;
     }
 
-    public function getHTMLFragments($gridField) {
+    public function getHTMLFragments($gridField)
+    {
         $button = new GridField_FormAction(
             $gridField,
             'syncwithyoutube',
-            _t('GridFieldSyncYoutubeVideos.CTA','Sync with Youtube'),
+            _t('GridFieldSyncYoutubeVideos.CTA', 'Sync with Youtube'),
             'syncwithyoutube',
             null
         );
@@ -24,12 +26,14 @@ class GridFieldSyncYoutubeVideos implements GridField_HTMLProvider, GridField_Ac
         );
     }
 
-    public function getActions($gridField) {
+    public function getActions($gridField)
+    {
         return array('syncwithyoutube');
     }
 
-    public function handleAction(GridField $gridField, $actionName, $arguments, $data) {
-        if($actionName == 'syncwithyoutube') {
+    public function handleAction(GridField $gridField, $actionName, $arguments, $data)
+    {
+        if ($actionName == 'syncwithyoutube') {
             $this->handleSyncWithYoutube($gridField);
         }
     }
@@ -37,7 +41,8 @@ class GridFieldSyncYoutubeVideos implements GridField_HTMLProvider, GridField_Ac
     /**
      * Call the youtube factory function to get and update the video entries
      */
-    public function handleSyncWithYoutube($gridField, $request = null) {
+    public function handleSyncWithYoutube($gridField, $request = null)
+    {
 
         // Get the youtube factory as singleton
         $yf = Injector::inst()->get('YoutubeFactory');
@@ -51,5 +56,4 @@ class GridFieldSyncYoutubeVideos implements GridField_HTMLProvider, GridField_Ac
         // Redirect to the grid overview
         Controller::curr()->redirectBack();
     }
-
 }
